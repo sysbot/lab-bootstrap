@@ -1,0 +1,20 @@
+#+begin_src plantuml :file arch.svg :exports
+@startuml bootstrap
+actor Admin
+collections "Mgmt Net 192.168.0.0/24" as MGMT
+rectangle "Bootstrap Host\n192.168.0.10\n10.10.0.1" as B {
+  component DHCP
+  component "blocky DNS"
+  component NGINX
+  component "chrony NTP"
+  component NAT
+}
+cloud "Lab Net 10.10.0.0/24" as LAB
+
+Admin --> MGMT : SSH/HTTPS
+MGMT --> B : ssh 22\nhttp 80
+B --> LAB : DHCP 67/UDP\nDNS 53/TCP/UDP\nNTP 123/UDP
+B --> MGMT : Outbound NAT
+LAB --> B : PXE HTTP/TFTP
+@enduml
+#+end_src

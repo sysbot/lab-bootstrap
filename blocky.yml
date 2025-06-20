@@ -1,0 +1,9 @@
+upstream:
+  default:
+    - https://1.1.1.1/dns-query
+blocking:
+  blackLists:
+    ads: https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+  clientGroupsBlock:
+    default:
+      - ads
